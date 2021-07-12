@@ -54,13 +54,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $address1 = $_POST['address1'];
     $address2 = $_POST['address2'];
     $town = $_POST['town'];
+    $county = $_POST['county'];
     $country = $_POST['country'];
     $postcode = $_POST['postcode'];
 
     $subject = 'Form Response from '.$firstName." ".$lastName;
     $mailTo = 'aziz@gourvid.tech';
     $headers = "From: ".$email;
-    $txt = "You recieved a form submission. \n\nFirst Name: ".$firstName."\n\Last Name: ".$lastName.""."\n\Address: ".$address1." ".$address2." ".$town." ".$country." ".$postcode."\n\Message: ".$message;
+    $txt = "You recieved a form submission. \n\nFirst Name: ".$firstName."\n\Last Name: ".$lastName.""."\n\Address: ".$address1." ".$address2." ".$town." ".$county." ".$postcode." ".$country."\n\Message: ".$message;
     
     if($nameError == '' and $lastNameError == '' and $emailError == '' and $messageError == '' and $teleError == ''){
         mail($mailTo, $subject, $txt, $headers);
