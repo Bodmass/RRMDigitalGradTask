@@ -59,6 +59,7 @@ hr {
   border: 1px solid rgba(69, 69, 69, 0.53);
   margin-right: 2rem;
   margin-bottom: 1rem;
+  resize: none;
 }
 
 .contactFormGroup {
@@ -76,7 +77,14 @@ hr {
   border-radius: 5px;
   color: white;
   background-color: #40de40;
+  cursor: pointer;
   margin-top: 1rem;
+}
+
+.submitButton:disabled {
+  cursor: not-allowed;
+  background-color: #45454587;
+  border-color: #45454587;
 }
 
 .error {
@@ -86,9 +94,19 @@ hr {
   color: #ff0000;
 }
 
-.contactForm label {
+.contactField {
   display: flex;
   flex-direction: column;
+}
+
+.contactLabel {
+  display: flex;
+  flex-direction: column;
+  height: 2rem;
+}
+
+.fileSelector {
+  font-size: 0.75rem;
 }
 
 @media screen and (max-width: 600px) {
@@ -105,7 +123,7 @@ hr {
 }
 
 @media screen and (max-width: 340px) {
-  .contactFormGroup div {
+  .contactFormGroup.contactField {
     width: 100%;
   }
 
