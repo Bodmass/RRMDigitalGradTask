@@ -33,10 +33,12 @@ hr {
 .contactFormContainer {
   display: flex;
   width: 800px;
-  height: 100vh;
+
   justify-content: center;
   flex-direction: column;
   border-radius: 5px;
+  margin-top: 2rem;
+  margin-left: 2rem;
 }
 
 .textForm {
@@ -52,9 +54,11 @@ hr {
 .textArea {
   max-width: 100%;
   height: 8rem;
+  min-height: 6rem;
   border-radius: 0.25rem;
   border: 1px solid rgba(69, 69, 69, 0.53);
   margin-right: 2rem;
+  margin-bottom: 1rem;
 }
 
 .contactFormGroup {
@@ -87,13 +91,40 @@ hr {
   flex-direction: column;
 }
 
-@media screen and (max-width: 1000px) {
+@media screen and (max-width: 600px) {
   .contactForm {
-    padding: 1rem;
     justify-content: center;
   }
   .contactFormGroup {
-    justify-content: center;
-    flex-direction: column;
+    width: 100%;
+  }
+
+  .textArea {
+    width: calc(100% - 2rem);
+  }
+}
+
+@media screen and (max-width: 340px) {
+  .contactFormGroup div {
+    width: 100%;
+  }
+
+  .textForm {
+    min-width: 100%;
+    width: 100%;
+    margin-right: 0;
+  }
+
+  .textArea {
+    width: 100%;
+  }
+
+  .submitButton {
+    min-width: 100%;
+    width: 100%;
+  }
+
+  .contactFormContainer {
+    margin-left: 0;
   }
 }
