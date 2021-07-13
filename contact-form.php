@@ -69,7 +69,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $postcode = $_POST['postcode'];
     $fullAddress = '';
 
-    if(!empty($_FILES["upload"]["name"])){
+    if(!empty($_FILES["upload"])){
                 
       // File path config
       $targetDir = "tmp/";
@@ -121,7 +121,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $subject = 'Form Response from '.$firstName." ".$lastName;
     $mailTo = 'aziz@gourvid.tech';
     $headers = "From: ".$email;
-    $txt = "You recieved a form submission. \n\nFirst Name: ".$firstName."\n\Last Name: ".$lastName.""."\n\Address: ".$address1." ".$address2." ".$town." ".$county." ".$postcode." ".$country."\n\Message: ".$message;
+    //$txt = "You recieved a form submission. \n\nFirst Name: ".$firstName."\n\Last Name: ".$lastName.""."\n\Address: ".$address1." ".$address2." ".$town." ".$county." ".$postcode." ".$country."\n\Message: ".$message;
 
     $htmlContent = '<style type="text/css">
     .tg  {border-collapse:collapse;border-spacing:0;margin:0px auto;}
@@ -171,30 +171,36 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </tbody>
     </table>';
 
-    $semiRand = md5(time());
-    $mimeBoundary = "==Multipart_Boundary_x{$semiRand}x";
-    $headers .= "\nMIME-Version: 1.0\n" . "Content-Type: multipart/mixed;\n" . " boundary=\"{$mimeBoundary}\""; 
-    $txt = "--{$mimeBoundary}\n" . "Content-Type: text/html; charset=\"UTF-8\"\n" . 
-    "Content-Transfer-Encoding: 7bit\n\n" . $htmlContent . "\n\n";  
+    $emailContent = $htmlContent;
+   
+    $fileAttachment = trim($_FILES["cvupload"]['tmp_name']);
 
-    if(is_file($uploadedFile)){
-      $txt .= "--{$mimeBoundary}\n";
-      $fp =    @fopen($uploadedFile,"rb");
-      $data =  @fread($fp,filesize($uploadedFile));
-      @fclose($fp);
-      $data = chunk_split∂(base64_encode($data));
-      $txt .= "Content-Type: application/octet-stream; name=\"".basename($uploadedFile)."\"\n" . 
-      "Content-Description: ".basename($uploadedFile)."\n" .
-      "Content-Disposition: attachment;\n" . " filename=\"".basename($uploadedFile)."\"; size=".filesize($uploadedFile).";\n" . 
-      "Content-Transfer-Encoding: base64\n\n" . $data . "\n\n";
-    }
-  
-    $txt .= "--{$mimeBoundary}--"; 
-    $returnpath = "-f" . $email; 
+    if ($fileAttachment) {
+      $pathInfo       = pathinfo($fileAttachment);
+      $attachmentName  = trim($_FILES["cvupload"]['name']);
+
+      $attachment    = chunk_split(base64_encode(file_get_contents($fileAttachment)));
+      $boundary      = "PHP-mixed-".md5(time());
+      $boundWithPre  = "\n--".$boundary;
+
+      $headers   = "From: $email";
+      $headers  .= "\nReply-To: $email";
+      $headers  .= "\nContent-Type: multipart/mixed; boundary=\"".$boundary."\"";
+
+      $emailContent   = $boundWithPre;
+      $emailContent  .= "\n Content-Type: text/plain; charset=UTF-8\n";
+      $emailContent  .= "\n $htmlContent";
+
+      $emailContent .= $boundWithPre;
+      $emailContent .= "\nContent-Type: application/octet-stream; name=\"".$attachmentName."\"";
+      $emailContent .= "\nContent-Transfer-Encoding: base64\n";
+      $emailContent .= "\nContent-Disposition: attachment\n";
+      $emailContent .= $attachment;
+      $emailContent .= $boundWithPre."--";
+    } 
 
     if($nameError == '' and $lastNameError == '' and $emailError == '' and $messageError == '' and $teleError == ''){
-        mail($mailTo, $subject, $txt, $headers, $returnpath);
-        @unlink($uploadedFile);
+        mail($mailTo, $subject, $emailContent, $headers);
         $submitSuccess = "Hi $firstName, thank you for getting in contact. We will be in touch shortly.";
         $submitDisabled = true;
     }
