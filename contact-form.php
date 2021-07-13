@@ -63,11 +63,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $postcode = $_POST['postcode'];
     $fullAddress = '';
 
-    if(!empty($_FILES["upload"])){
+    if(!empty($_FILES["cvupload"])){
                 
       // File path config
       $targetDir = "tmp/";
-      $fileName = basename($_FILES["upload"]["name"]);
+      $fileName = basename($_FILES["cvupload"]["name"]);
       $targetFilePath = $targetDir . $fileName;
       $fileType = pathinfo($targetFilePath,PATHINFO_EXTENSION);
       
@@ -75,7 +75,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       $allowTypes = array('pdf', 'doc', 'docx');
       if(in_array($fileType, $allowTypes)){
           // Upload file to the server
-          if(move_uploaded_file($_FILES["upload"]["tmp_name"], $targetFilePath)){
+          if(move_uploaded_file($_FILES["cvupload"]["tmp_name"], $targetFilePath)){
               $uploadedFile = $targetFilePath;
           }else{
               $uploadStatus = 0;
@@ -168,6 +168,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $emailContent = $htmlContent;
    
     $fileAttachment = trim($_FILES["cvupload"]['tmp_name']);
+
+    $headers = "Content-Type: text/html";
 
     if ($fileAttachment) {
       $pathInfo       = pathinfo($fileAttachment);
