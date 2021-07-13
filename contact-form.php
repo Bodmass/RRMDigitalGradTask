@@ -113,7 +113,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     $subject = 'Form Response from '.$firstName." ".$lastName;
-    $mailTo = 'aziz@gourvid.tech';
+    $mailTo = $email;
     $headers = "From: ".$email;
     //$txt = "You recieved a form submission. \n\nFirst Name: ".$firstName."\n\Last Name: ".$lastName.""."\n\Address: ".$address1." ".$address2." ".$town." ".$county." ".$postcode." ".$country."\n\Message: ".$message;
 
