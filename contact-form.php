@@ -6,12 +6,6 @@ $submitDisabled = false;
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-    $target_dir = "uploads/";
-    $target_file = $target_dir . basename($_FILES["upload"]["name"]);
-    $uploadOk = 1;
-    $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
-
-  
     if (empty($_POST["firstName"])) {
         $nameError = "First Name is required";
     }
