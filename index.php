@@ -18,13 +18,14 @@
     <title>Contact Us Form : Aziz Arar
     </title>
     <link rel="stylesheet" href="assets/css/style.css"
-</head>
+  </head>
   <body>
     <form class="contactForm" action="<?= $_SERVER["PHP_SELF"] ?>" method="post">
       <div class="contactFormContainer">
         <div class="contactFormGroup">
           <div>
-            <label>First Name*
+            <label>
+              First Name*
               <span class="error">
                 <?php echo $nameError; ?>
               </span>
@@ -32,7 +33,8 @@
             <input class="textForm" type="text" name="firstName" value="<?php echo $firstName; ?>"/>
           </div>
           <div>
-            <label>Last Name*
+            <label>
+              Last Name*
               <span class="error">
                 <?php echo $lastNameError; ?>
               </span>
@@ -42,7 +44,8 @@
         </div>
         <div class="contactFormGroup">
           <div>
-            <label>Email Address*
+            <label>
+              Email Address*
               <span class="error">
                 <?php echo $emailError; ?>
               </span>
@@ -50,7 +53,8 @@
             <input class="textForm" type="text" name="email" value="<?php echo $email; ?>"/>
           </div>
           <div>
-            <label>Telephone Number*
+            <label>
+              Telephone Number*
               <span class="error">
                 <?php echo $teleError; ?>
               </span>
@@ -60,50 +64,44 @@
         </div>
         <div class="contactFormGroup">
           <div>
-            <label>Address 1
-            </label>
+            <label>Address 1</label>
             <input class="textForm" type="text" name="address1" value="<?php echo $address1; ?>"/>
           </div>
           <div>
-            <label>Address 2
-            </label>
+            <label>Address 2</label>
             <input class="textForm" type="text" name="address2" value="<?php echo $address2; ?>"/>
           </div>
         </div>
         <div class="contactFormGroup">
           <div>
-            <label>Town
-            </label>
+            <label>Town</label>
             <input class="textForm" type="text" name="town" value="<?php echo $town; ?>"/>
           </div>
           <div>
-            <label>County
-            </label>
+            <label>County</label>
             <input class="textForm" type="text" name="county" value="<?php echo $county; ?>"/>
           </div>
         </div>
         <div class="contactFormGroup">
           <div>
-            <label>Postcode
-            </label>
+            <label>Postcode</label>
             <input class="textForm" type="text" name="postcode" value="<?php echo $postcode; ?>"/>
           </div>
           <div>
-            <label>Country
-            </label>
+            <label>Country</label>
             <?php echo $select; ?>
           </div>
         </div>
-        <label>Description*
+        <label>
+          Description*
           <span class="error">
             <?php echo $messageError; ?>
           </span>
         </label>
-        <textarea class="textArea" name="message">
+        <textarea class="textArea" name="message" rows="4" cols="50">
           <?php echo $message; ?>
         </textarea>
-        <label>Your C.V
-        </label>
+        <label>Your C.V</label>
         <input class="uploadField" type="file" name="upload" />
         <button class="submitButton" type="submit" name="submitBTN">
           SUBMIT
