@@ -1,6 +1,12 @@
 <?php
   $filename = "countries.txt";
   $eachlines = file($filename, FILE_IGNORE_NEW_LINES);
+  $options = '';
+  $address1 = '';
+  $address2 = '';
+  $town = '';
+  $county = '';
+  $postcode = '';
   $select = '<select class="textForm" name="country" id="value">';
   if(!$_POST['country'] == ''){
     $options = "<option>{$_POST['country']}</option>";
@@ -23,7 +29,7 @@
     <link rel="stylesheet" href="assets/css/style.css"
   </head>
   <body>
-    <form class="contactForm" action="<?= $_SERVER["PHP_SELF"] ?>" method="post">
+    <form class="contactForm" action="<?= $_SERVER["PHP_SELF"] ?>" method="post" enctype="multipart/form-data">
       <div class="contactFormContainer">
         <div class="contactFormGroup">
           <div class="contactField">
@@ -105,7 +111,7 @@
         <label class="contactLabel">Your C.V</label>
         <div class="fileSelector">
           Select a file
-          <input class="uploadField" type="file" name="upload" accept=".pdf,.doc,.docx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"/>
+          <input class="uploadField" type="file" name="cvupload" accept=".pdf,.doc,.docx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"/>
         </div>
         <button class="submitButton" type="submit" name="submitBTN">
           SUBMIT
