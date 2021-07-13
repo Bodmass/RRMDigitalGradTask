@@ -188,7 +188,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       $headers  .= "\nContent-Type: multipart/mixed; boundary=\"".$boundary."\"";
 
       $emailContent   = $boundWithPre;
-      $emailContent  .= "\n Content-Type: text/plain; charset=UTF-8\n";
+      $emailContent  .= "\n Content-Type: text/html; charset=UTF-8\n";
       $emailContent  .= "\n $htmlContent";
 
       $emailContent .= $boundWithPre;
