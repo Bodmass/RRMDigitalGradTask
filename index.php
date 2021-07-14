@@ -1,7 +1,17 @@
 <?php
   $filename = "countries.txt";
   $eachlines = file($filename, FILE_IGNORE_NEW_LINES);
+  $options = '';
+  $address1 = '';
+  $address2 = '';
+  $town = '';
+  $county = '';
+  $postcode = '';
   $select = '<select class="textForm" name="country" id="value">';
+  $submitSuccessful = $_POST['submitSuccessful'];
+  if(!$_POST['country'] == ''){
+    $options = "<option>{$_POST['country']}</option>";
+  }
   foreach ($eachlines as $lines) {
     $options .= "<option>{$lines}</option>";
   }
@@ -18,21 +28,27 @@
     <title>Contact Us Form : Aziz Arar
     </title>
     <link rel="stylesheet" href="assets/css/style.css"
-</head>
+  </head>
   <body>
-    <form class="contactForm" action="<?= $_SERVER["PHP_SELF"] ?>" method="post">
-      <div class="contactFormContainer">
+
+    <form class="contactForm" action="<?= $_SERVER["PHP_SELF"] ?>" method="post" enctype="multipart/form-data" >
+      <div class="completeForm" <?php if ($submitSuccessful){ echo 'style="display:flex;"'; }?> >
+        <?php echo $submitSuccess; ?>
+      </div>  
+      <div class="contactFormContainer" <?php if ($submitSuccessful){ echo 'style="display:none;"'; } ?>>
         <div class="contactFormGroup">
-          <div>
-            <label>First Name*
+          <div class="contactField">
+            <label class="contactLabel">
+              First Name*
               <span class="error">
                 <?php echo $nameError; ?>
               </span>
             </label>
             <input class="textForm" type="text" name="firstName" value="<?php echo $firstName; ?>"/>
           </div>
-          <div>
-            <label>Last Name*
+          <div class="contactField">
+            <label class="contactLabel">
+              Last Name*
               <span class="error">
                 <?php echo $lastNameError; ?>
               </span>
@@ -41,16 +57,18 @@
           </div>
         </div>
         <div class="contactFormGroup">
-          <div>
-            <label>Email Address*
+          <div class="contactField">
+            <label class="contactLabel">
+              Email Address*
               <span class="error">
                 <?php echo $emailError; ?>
               </span>
             </label>
             <input class="textForm" type="text" name="email" value="<?php echo $email; ?>"/>
           </div>
-          <div>
-            <label>Telephone Number*
+          <div class="contactField">
+            <label class="contactLabel">
+              Telephone Number*
               <span class="error">
                 <?php echo $teleError; ?>
               </span>
@@ -59,55 +77,51 @@
           </div>
         </div>
         <div class="contactFormGroup">
-          <div>
-            <label>Address 1
-            </label>
+          <div class="contactField">
+            <label class="contactLabel">Address 1</label>
             <input class="textForm" type="text" name="address1" value="<?php echo $address1; ?>"/>
           </div>
-          <div>
-            <label>Address 2
-            </label>
+          <div class="contactField">
+            <label class="contactLabel">Address 2</label>
             <input class="textForm" type="text" name="address2" value="<?php echo $address2; ?>"/>
           </div>
         </div>
         <div class="contactFormGroup">
-          <div>
-            <label>Town
-            </label>
+          <div class="contactField">
+            <label class="contactLabel">Town</label>
             <input class="textForm" type="text" name="town" value="<?php echo $town; ?>"/>
           </div>
-          <div>
-            <label>County
-            </label>
+          <div class="contactField">
+            <label class="contactLabel">County</label>
             <input class="textForm" type="text" name="county" value="<?php echo $county; ?>"/>
           </div>
         </div>
         <div class="contactFormGroup">
-          <div>
-            <label>Postcode
-            </label>
+          <div class="contactField">
+            <label class="contactLabel">Postcode</label>
             <input class="textForm" type="text" name="postcode" value="<?php echo $postcode; ?>"/>
           </div>
-          <div>
-            <label>Country
-            </label>
+          <div class="contactField">
+            <label class="contactLabel">Country</label>
             <?php echo $select; ?>
           </div>
         </div>
-        <label>Description*
+        <label class="contactLabel">
+          Description*
           <span class="error">
             <?php echo $messageError; ?>
           </span>
         </label>
-        <textarea class="textArea" name="message">
-          <?php echo $message; ?>
-        </textarea>
-        <label>Your C.V
-        </label>
-        <input class="uploadField" type="file" name="upload" />
+        <textarea class="textArea" name="message"><?php echo $message; ?></textarea>
+        <label class="contactLabel">Your C.V</label>
+        <div class="fileSelector">
+          Select a file
+          <input class="uploadField" type="file" name="cvupload" accept=".pdf,.doc,.docx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"/>
+        </div>
         <button class="submitButton" type="submit" name="submitBTN">
           SUBMIT
         </button>
+        <?php echo $submitError; ?>
       </div>
     </form>
   </body>
