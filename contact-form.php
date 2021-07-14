@@ -169,7 +169,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
    
     $fileAttachment = trim($_FILES["cvupload"]['tmp_name']);
 
-    $headers = "Content-Type: text/html";
+    $headers .= "\nContent-Type: text/html";
 
     if ($fileAttachment) {
       $pathInfo       = pathinfo($fileAttachment);
