@@ -2,7 +2,7 @@
 
 $nameError = $lastNameError = $emailError = $teleError = $messageError = $uploadError = "";
 $firstName = $lastName = $email = $tele = $message = $uploadedFile = "";
-$submitDisabled = false;
+$submitSuccessful = false;
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
@@ -198,7 +198,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if($nameError == '' and $lastNameError == '' and $emailError == '' and $messageError == '' and $teleError == ''){
         mail($mailTo, $subject, $emailContent, $headers);
         $submitSuccess = "Hi $firstName, thank you for getting in contact. We will be in touch shortly.";
-        $submitDisabled = true;
+        $submitSuccessful = true;
     }
     else{
       $submitError = "Please correct the errors listed in the form!";

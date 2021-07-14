@@ -8,6 +8,7 @@
   $county = '';
   $postcode = '';
   $select = '<select class="textForm" name="country" id="value">';
+  $submitSuccessful = $_POST['submitSuccessful'];
   if(!$_POST['country'] == ''){
     $options = "<option>{$_POST['country']}</option>";
   }
@@ -29,8 +30,12 @@
     <link rel="stylesheet" href="assets/css/style.css"
   </head>
   <body>
-    <form class="contactForm" action="<?= $_SERVER["PHP_SELF"] ?>" method="post" enctype="multipart/form-data">
-      <div class="contactFormContainer">
+
+    <form class="contactForm" action="<?= $_SERVER["PHP_SELF"] ?>" method="post" enctype="multipart/form-data" >
+      <div class="completeForm" <?php if ($submitSuccessful){ echo 'style="display:flex;"'; }?> >
+        <?php echo $submitSuccess; ?>
+      </div>  
+      <div class="contactFormContainer" <?php if ($submitSuccessful){ echo 'style="display:none;"'; } ?>>
         <div class="contactFormGroup">
           <div class="contactField">
             <label class="contactLabel">
@@ -116,7 +121,6 @@
         <button class="submitButton" type="submit" name="submitBTN">
           SUBMIT
         </button>
-        <?php echo $submitSuccess; ?>
         <?php echo $submitError; ?>
       </div>
     </form>
