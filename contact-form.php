@@ -197,6 +197,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if($nameError == '' and $lastNameError == '' and $emailError == '' and $messageError == '' and $teleError == ''){
         mail($mailTo, $subject, $emailContent, $headers);
+        @unlink($fileAttachment);
         $submitSuccess = "Hi $firstName, thank you for getting in contact. We will be in touch shortly.";
         $submitSuccessful = true;
     }
